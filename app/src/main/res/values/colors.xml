@@ -3,5 +3,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="maroon">#702E3D</color>
+    <color name="light_blue">#102D58</color>
+
 
 </resources>

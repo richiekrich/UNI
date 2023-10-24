@@ -14,10 +14,12 @@ class SplashScreenActivity : AppCompatActivity() {
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
 
         Handler().postDelayed({
-            val intent = Intent(this, MainActivity::class.java)
+            // Change the intent to start your LoginActivity
+            val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
             finish()
         }, 3000)
+
 
     }
 }
