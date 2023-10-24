@@ -9,6 +9,9 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 
+
+
+
 class LoginActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var loginButton: Button
@@ -26,20 +29,28 @@ class LoginActivity : AppCompatActivity() {
         loginButton = findViewById(R.id.loginButton) as Button
         registerButtton = findViewById(R.id.registerButton) as Button
 
-        registerButtton.setOnClickListener{
+        auth = FirebaseAuth.getInstance()
+
+        registerButtton.setOnClickListener {
             val intent = Intent(this@LoginActivity, RegisterActivity::class.java)
             startActivity(intent)
         }
 
-        loginButton.setOnClickListener{
-            auth = FirebaseAuth.getInstance()
-            auth.signInWithEmailAndPassword(email.text.toString(), password.text.toString()).
-            addOnCompleteListener { task: Task<AuthResult> ->
-                val intentToMain = Intent(this@LoginActivity, MainActivity::class.java)
-                startActivity(intentToMain)
-            }
+        loginButton.setOnClickListener {
+            val userEmail = email.text.toString()
+            val userPassword = password.text.toString()
 
+            auth.signInWithEmailAndPassword(userEmail, userPassword)
+                .addOnCompleteListener { task: Task<AuthResult> ->
+                    if (task.isSuccessful) {
+                        // Authentication successful, navigate to the main activity
+                        val intentToMain = Intent(this@LoginActivity, MainActivity::class.java)
+                        startActivity(intentToMain)
+                    } else {
+                        // Authentication failed, handle the error
+                        // You can add error handling code here (e.g., show an error message)
+                    }
+                }
         }
-
     }
 }
